@@ -21,5 +21,6 @@ struct Nodo{
     Nodo* siguiente;
     Nodo* anterior;
 };//porque va a ser una lista doblemente enlazada
-
+void menu();
+bool agregarExamen();
 #endif
