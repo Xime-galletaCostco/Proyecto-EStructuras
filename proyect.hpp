@@ -12,10 +12,6 @@ struct Pregunta{
     string correcta;
     int puntaje;
 };
-struct Materia{
-    string nombre;
-    Pregunta preguntas[5];
-};
 struct Nodo{
     Pregunta pregunta;
     Nodo* siguiente;
