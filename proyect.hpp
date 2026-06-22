@@ -2,14 +2,15 @@
 #ifndef PROYECT_HPP
 #define PROYECT_HPP
 #include <iostream>
+#include <string.h>
 using namespace std;
 struct Pregunta{
-    string pregunta;
-    string respuesta1;
-    string respuesta2;
-    string respuesta3;
-    string respuesta4;
-    string correcta;
+    char pregunta[50];
+    char respuesta1[50];
+    char respuesta2[50];
+    char respuesta3[50];
+    char respuesta4[50];
+    char correcta[50];
     int puntaje;
 };
 struct Nodo{
@@ -17,6 +18,9 @@ struct Nodo{
     Nodo* siguiente;
     Nodo* anterior;
 };//porque va a ser una lista doblemente enlazada
+typedef Nodo* pNodo;
 void menu();
 bool agregarExamen();
+void cargarLista(strinng materiaTitulo,pNodo &raiz);
+void agregarNodo(pNodo &raiz,struct Pregunta aux);
 #endif
