@@ -10,8 +10,6 @@ void menu(){
     cout<<"Modificar reactivos de un examen------------------2"<<endl;
     cout<<"Aplicar un examen---------------------------------3"<<endl;
     cout<<"Salir---------------------------------------------4"<<endl;
-   
-    
     cin>>opc;
     switch (opc)
     {
@@ -70,7 +68,7 @@ void agregarExamen(){
         cin.getline(aux.pregunta,50,'\n');
         cout<<"Escriba la respuesta CORRECTA"<<endl;
         cin.getline(aux.correcta,50,'\n');
-        cout<<"Escriba el puntaje de la pregunta"<<endl;
+        cout<<"Escriba el puntaje de la pregunta.Use solo numeros"<<endl;
         cin>>aux.puntaje;
         cin.ignore();
         cout<<"Escriba las otras respuestas disponibles, esas seran las incorrectas,menos una,escriba la correcta de nuevo en una opcion"<<endl;
@@ -273,7 +271,7 @@ void modificarExamen(){
             cin.getline(actual->pregunta.respuesta4,50);
             cout<<"Respuesta Correcta: ";
             cin.getline(actual->pregunta.correcta,50);
-            cout<<"Puntuaje: ";
+            cout<<"Puntaje: ";
             cin>>actual->pregunta.puntaje;
             cin.ignore();
         }
