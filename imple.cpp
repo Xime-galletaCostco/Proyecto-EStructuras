@@ -130,39 +130,81 @@ void aplicarExamen(pNodo &raiz){
     int total =0;
     if(raiz==NULL){
         cout<<"No hay preguntas"<<endl;
-        exit(1);
+        return;
     }
     do{
         cout<<"\nPregunta:"<<endl;
         cout<<aux->pregunta.pregunta<<endl;
-        cout<<"1)"<<aux->preguunta.respuesta1<<endl;
-        cout<<"2)"<<aux->preguunta.respuesta2<<endl;
-        cout<<"3)"<<aux->preguunta.respuesta3<<endl;
-        cout<<"4)"<<aux->preguunta.respuesta4<<endl;
+        cout<<"1)"<<aux->pregunta.respuesta1<<endl;
+        cout<<"2)"<<aux->pregunta.respuesta2<<endl;
+        cout<<"3)"<<aux->pregunta.respuesta3<<endl;
+        cout<<"4)"<<aux->pregunta.respuesta4<<endl;
         cout<<"Respuesta: ";
         cin.getline(respuesta,50);
         if(strcmp(respuesta,aux->pregunta.correcta)==0){
             total+=aux->pregunta.puntuaje;
         }
         aux=aux->siguiente;
-    }while(aux!=NULL);
+    }while(aux!=raiz);
     cout<<"Puntuaje final: "<<total<<endl;
 }
-void modificarExamen(pNodo &raiz){
+void guardarLista(string materia, pNodo raiz){
+    FILE *arch= fopen(materia.c_str(),"wb");
+    if(arch==NULL){
+        cout<<"ERROR al abrir archivo"<<endl;
+        return;
+    }
+    if(raiz!=NULL){
+        pNodo=raiz;
+        do{
+            fwrite=(&aux->pregunta,sizeof(Pregunta),1,arch);//guarda cada nodo en el archivo 
+            aux=aux->siguiente;
+        }while(aux!=raiz);//recorre la lista 
+    }
+    fclose(arch);
+    cout<<"Cambios guardados correctamente"<<endl;
+}
+void liberarLista(pNodo &raiz){
     if(raiz==NULL){
-        cout<<"No hay preguntas"<<endl;
-        exit(1);
+        return;
     }
     pNodo actual=raiz;
+    pNodo borrar;
+    do{
+        borrar=actual;
+        actual=actual->siguiente;
+        delete borrar;
+    }while(actual!=raiz)
+        raiz=NULL;
+    
+}
+void modificarExamen(){
+    string materia;
+    cout<<"Materia del examen:";
+    cin>>materia;
+    materia=materia +".data";
+    FILE *arch=fopen(materia.c_str(),"rb");
+    if(arch == NULL){
+        cout<<"No existe el examen"<<endl;
+        return;
+    }
+    fclose(arch);
+    pNodo raiz=NULL;
+    cargarLista(materia,raiz);
+    pNodo actual=raiz;
     char opc;
+    if(raiz==NULL){
+        cout<<"No hay preguntas"<<endl;
+        return;
+    }
     do{
         cout<<"\nPREGUNTA ACTUAL:\n";
         cout<<actual->pregunta.pregunta<<endl;
         cout<<"1) "<<actual->pregunta.respuesta1<<endl;
-        cout<<"2) "<<actual.pregunta.respuesta2<<endl;
-        cout<<"3) "<<actual.pregunta.respuesta3<<endl;
-        cout<<"4) "<<actual.pregunta.respuesta4<<endl;
-        cout<<"Respuesta correcta: "<<actual.pregunta.correcta<<endl;
+        cout<<"2) "<<actual->pregunta.respuesta2<<endl;
+        cout<<"3) "<<actual->pregunta.respuesta3<<endl;
+        cout<<"4) "<<actual->pregunta.respuesta4<<endl;
+        cout<<"Respuesta correcta: "<<actual->pregunta.correcta<<endl;
         cout<<"Puntuaje: "<<actual->puntuaje<<endl;
         cout<<"\nOpciones:\n";
         cout<<"n:siguiente\n";
@@ -192,7 +234,9 @@ void modificarExamen(pNodo &raiz){
             cin>>actual->pregunta.puntuaje;
             cin.ignore();
         }while(opc!='s');
-                  
+        guardarLista(materia,raiz);
+        liberarLista(raiz);
+            
     }
     
     
