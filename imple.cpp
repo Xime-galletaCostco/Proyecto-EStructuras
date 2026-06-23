@@ -52,7 +52,7 @@ bool agregarExamen(){
     cin.ignore();
     getline(cin,auxiliar);
     nombre=auxiliar +".data";
-    archivo=fopen(nombre.c_str(),"ab");
+    archivo=fopen(nombre.c_str(),"wb");
     if(archivo==NULL){
         cout<<"Error al abrir el archivo"<<endl;
         return false;
@@ -63,7 +63,8 @@ bool agregarExamen(){
         cout<<"Escriba la pregunta "<<i+1<<": "<<endl;
         cin.getline(aux.pregunta,50,'\n');
         cout<<"Escriba la respuesta CORRECTA"<<endl;
-        cin>>aux.correcta;
+        cin.ignore();
+        cin.getline(aux.correcta,50,'\n');
         cin.ignore();
         cout<<"Escriba el puntaje de la pregunta"<<endl;
         cin>>aux.puntaje;
@@ -75,6 +76,9 @@ bool agregarExamen(){
             cin.getline(aux.respuesta2,50,'\n');
             cout<<"Respuesta tres"<<endl;
             cin.getline(aux.respuesta3,50,'\n');
+            cout<<"Respuesta cuatro"<<endl;
+            cin.getline(aux.respuesta4,50,'\n');
+            
         fwrite(&aux,sizeof(struct Pregunta),1,archivo);
     }
     //para este punto ya se puede crear el examen y el archivo con el nombre de la materia y se tienen registradas las preguntas del examen
@@ -120,3 +124,76 @@ void agregarNodo(pNodo &raiz,struct Pregunta aux){
         return;
     }
 }
+void aplicarExamen(pNodo &raiz){
+    pNodo aux=raiz;
+    char respuesta[50];
+    int total =0;
+    if(raiz==NULL){
+        cout<<"No hay preguntas"<<endl;
+        exit(1);
+    }
+    do{
+        cout<<"\nPregunta:"<<endl;
+        cout<<aux->pregunta.pregunta<<endl;
+        cout<<"1)"<<aux->preguunta.respuesta1<<endl;
+        cout<<"2)"<<aux->preguunta.respuesta2<<endl;
+        cout<<"3)"<<aux->preguunta.respuesta3<<endl;
+        cout<<"4)"<<aux->preguunta.respuesta4<<endl;
+        cout<<"Respuesta: ";
+        cin.getline(respuesta,50);
+        if(strcmp(respuesta,aux->pregunta.correcta)==0){
+            total+=aux->pregunta.puntuaje;
+        }
+        aux=aux->siguiente;
+    }while(aux!=NULL);
+    cout<<"Puntuaje final: "<<total<<endl;
+}
+void modificarExamen(pNodo &raiz){
+    if(raiz==NULL){
+        cout<<"No hay preguntas"<<endl;
+        exit(1);
+    }
+    pNodo actual=raiz;
+    char opc;
+    do{
+        cout<<"\nPREGUNTA ACTUAL:\n";
+        cout<<actual->pregunta.pregunta<<endl;
+        cout<<"1) "<<actual->pregunta.respuesta1<<endl;
+        cout<<"2) "<<actual.pregunta.respuesta2<<endl;
+        cout<<"3) "<<actual.pregunta.respuesta3<<endl;
+        cout<<"4) "<<actual.pregunta.respuesta4<<endl;
+        cout<<"Respuesta correcta: "<<actual.pregunta.correcta<<endl;
+        cout<<"Puntuaje: "<<actual->puntuaje<<endl;
+        cout<<"\nOpciones:\n";
+        cout<<"n:siguiente\n";
+        cout<<"a:anterior\n";
+        cout<<"m:modificar\n";
+        cout<<"s:salir\n";
+        cin>>opc;
+        cin.ignore();
+        if(opc=='n'){
+            actual=actual->siguiente;
+        }else if(opc=='a'){
+            actual=actual->anterior;
+        }else if(opc=='m'){
+            cout<<"Nueva pregunta: ";
+            cin.getline(actual->pregunta.pregunta,50);
+            cout<<"Respuesta 1: ";
+            cin.getline(actual->pregunta.respuesta1,50);
+            cout<<"Respuesta 2: ";
+            cin.getline(actual->pregunta.respuesta2,50);
+            cout<<"Respuesta 3: ";
+            cin.getline(actual->pregunta.respuesta3,50);
+            cout<<"Respuesta 4: ";
+            cin.getline(actual->pregunta.respuesta4,50);
+            cout<<"Respuesta Correcta: ";
+            cin.getline(actual->pregunta.correcta,50);
+            cout<<"Puntuaje: ";
+            cin>>actual->pregunta.puntuaje;
+            cin.ignore();
+        }while(opc!='s');
+                  
+    }
+    
+    
+    
