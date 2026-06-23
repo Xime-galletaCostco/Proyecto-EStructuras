@@ -17,10 +17,16 @@ struct Nodo{
     Pregunta pregunta;
     Nodo* siguiente;
     Nodo* anterior;
+    bool yaRespondio;
 };//porque va a ser una lista doblemente enlazada
 typedef Nodo* pNodo;
 void menu();
-bool agregarExamen();
-void cargarLista(strinng materiaTitulo,pNodo &raiz);
+void  agregarExamen();
+void cargarLista(string materiaTitulo,pNodo&raiz);
 void agregarNodo(pNodo &raiz,struct Pregunta aux);
+void aplicarExamen(pNodo &raiz);
+void guardarLista(string materia, pNodo raiz);
+void liberarLista(pNodo &raiz);
+void modificarExamen();
+
 #endif
