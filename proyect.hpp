@@ -3,6 +3,7 @@
 #define PROYECT_HPP
 #include <iostream>
 #include <string.h>
+#include<string>
 using namespace std;
 struct Pregunta{
     char pregunta[50];
