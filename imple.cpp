@@ -19,6 +19,9 @@ void menu(){
         //Se agrega nuevo examen
          agregarExamen();
         break;
+    case 2:
+        modificarExamen();
+    break;
     case 3:
         //aplicar el examen osea usar la lista enlazada doble
         cout<<"Escriba el nombre de la materia de la que quiere aplicar el examen"<<endl;
@@ -37,8 +40,7 @@ void menu(){
         aplicarExamen(raiz);
         }
         break;
-    case 2:
-    break;
+    
     case 4: cout<<"Saliendo.....";
     break;
     default:
@@ -248,6 +250,10 @@ void modificarExamen(){
         cout<<"s:salir\n";
         cin>>opc;
         cin.ignore();
+        while(opc !='n'&& opc!= 'm'&& opc!= 's'){
+            cout<<"Opcion invalida, intenta otra vez";
+            cin>>opc;
+        }
         if(opc=='n'){
             actual=actual->siguiente;
         }
