@@ -2,6 +2,7 @@
 #include "proyect.hpp"
 void menu(){
      int opc=0;
+     int contador=0,suma=0;
     string materiaTitulo;
     FILE*arch;
     do{
@@ -35,7 +36,10 @@ void menu(){
               pNodo raiz=NULL;
         cargarLista(materiaTitulo,raiz);
         //ya esta aqui raiz apuntando
-        aplicarExamen(raiz);
+        contador=0;
+        suma=0;
+        cargarPuntaje(raiz,contador,suma);
+        aplicarExamen(raiz,suma);
         }
         break;
     
@@ -127,7 +131,7 @@ void agregarNodo(pNodo &raiz,struct Pregunta aux){
         return;
     }
 }
-void aplicarExamen(pNodo &raiz){
+void aplicarExamen(pNodo &raiz,int suma){
      if(raiz==NULL){
         cout<<"No hay preguntas"<<endl;
         return;
@@ -178,7 +182,7 @@ void aplicarExamen(pNodo &raiz){
         }
         
     }
-    cout<<"Puntaje final: "<<total<<endl;
+    cout<<"Puntaje final: "<<total<<" de "<<suma<<" puntos totales"<<endl;
     liberarLista(raiz);
 }
 void guardarLista(string materia, pNodo raiz){
@@ -278,4 +282,14 @@ void modificarExamen(){
     }while(opc!='s');
     guardarLista(materia,raiz);
     liberarLista(raiz);
+}
+void cargarPuntaje(pNodo raiz,int &contador,int &suma){
+    if(contador==5){
+        return ;
+        //se supone de que ya es el puntaje final;
+    }
+    contador++;
+    suma+=raiz->pregunta.puntaje;
+    raiz=raiz->siguiente;
+    cargarPuntaje(raiz,contador,suma);
 }

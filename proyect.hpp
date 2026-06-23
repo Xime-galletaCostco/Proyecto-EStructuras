@@ -25,9 +25,9 @@ void menu();
 void  agregarExamen();
 void cargarLista(string materiaTitulo,pNodo&raiz);
 void agregarNodo(pNodo &raiz,struct Pregunta aux);
-void aplicarExamen(pNodo &raiz);
+void aplicarExamen(pNodo &raiz,int suma);
 void guardarLista(string materia, pNodo raiz);
 void liberarLista(pNodo &raiz);
 void modificarExamen();
-
+void  cargarPuntaje(pNodo raiz,int &contador,int &suma);
 #endif
